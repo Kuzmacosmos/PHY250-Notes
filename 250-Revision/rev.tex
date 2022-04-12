@@ -15,8 +15,8 @@
 
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[LE,RO]{\leftmark}
-\fancyhead[RE,LO]{\textsc{PHY250 Formulas \& Notes}}
+\fancyhead[RE,RO]{\leftmark}
+\fancyhead[LE,LO]{\textsc{PHY250 Notes}}
 \fancyfoot[CE,CO]{\thepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{tikz}
@@ -41,7 +41,7 @@
 \newcommand{\hrc}{\hat{\brc}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
+\numberwithin{equation}{section}
 \begin{document}
 	\begin{center}
 		\textbf{\Large{PHY250: Formulas and Notes}}\\
@@ -151,7 +151,7 @@
 		\subitem \(\nabla \cdot (\textbf{A}\times \textbf{B})=\textbf{B}\cdot(\nabla \times \textbf{A})-\textbf{A}\cdot (\nabla\times \textbf{B})\)
 		\item Two rules for curls:
 		\subitem \(\nabla \times (f\textbf{A})=f(\nabla \times \textbf{A})-\textbf{A}\times \nabla f\)
-		\subitem \(\nabla \times(\textbf{A}\times \textbf{B})=(\textbf{B}\cdot \nabla)\textbf{A}-(\textbf{A}\cdot \nabla)\textbf{B}+\textbf{A}(\nabla \cdot \textbf{B})-\textbf{B}(\nabla\cdot \textbf{A})\) (\textit{Proof: see PHY250 TUT1/TODO: transfer to this doc})
+		\subitem \(\nabla \times(\textbf{A}\times \textbf{B})=(\textbf{B}\cdot \nabla)\textbf{A}-(\textbf{A}\cdot \nabla)\textbf{B}+\textbf{A}(\nabla \cdot \textbf{B})-\textbf{B}(\nabla\cdot \textbf{A})\) (\textit{Proof: see TUT1})
 	\end{itemize}
 	
 	\subsection{$\cancel{\textrm{Double Del}}$ Second derivatives}
@@ -1365,11 +1365,283 @@ We have known that, by using the right hand screw law, the $\overrightarrow{B}$ 
 where $\mu_0=4\pi\times 10^{-7}$ N A$^{-2}$, the vacuum permeability. The unit of $\overrightarrow{B}$ field is Tesla (T). Tesla is a very large unit, and in regular physics lab the B field strength is usually $5\times 10^{-5}$ T, or 0.5 Gauss.
 
 
+\subsubsection{Examples}
+\textit{Infinitely long wire:} We have an infinitely long wire, with current $I$ on it. What is its B-field?
+\begin{itemize}
+    \item First, let's define the displacement vector $\overrightarrow{\rc}$:
+    \[\overrightarrow{\rc}=s\hat{s}-z\hat{z},\ \rc=\sqrt{s^2+z^2},\ d\overrightarrow{l}=dz\hat{z}\]
+    
+    \item Then from the Biot-Savart Law:
+    \[d\overrightarrow{B}=\frac{\mu_0I}{4\pi}\frac{d\overrightarrow{l}\times\overrightarrow{\rc}}{\rc^3}\]
+    where $\overrightarrow{\rc}=\rc\hrc$, $\dfrac{\hrc}{\rc^2}=\dfrac{\overrightarrow{\rc}}{\rc^3}$, and also:
+    \[d\overrightarrow{l}\times\overrightarrow{\rc}=0\hat{s}+sdz\hat{\phi}+0\hat{z}\implies d\overrightarrow{B}=\frac{\mu_0I}{4\pi}\frac{sdz}{(s^2+z^2)^{3/2}}\hat{\phi}\]
+    
+    \item Finally integrate $d\overrightarrow{B}$ over the whole wire:
+    \begin{eqnarray*}
+    \overrightarrow{B} &=& \int_{\mathcal{W}}d\overrightarrow{B}\\
+    &=&\frac{\mu_0I}{4\pi}\int_{-\infty}^{\infty}\frac{sdz}{(s^2+z^2)^{3/2}}\hat{\phi}\\
+    &=& ... \\
+    &=& \frac{\mu_0I}{2\pi s}\hat{\phi}
+    \end{eqnarray*}
+\end{itemize}
+\textbf{Conclusion} The magnetic field of the infinitely long straight wire is
+\begin{equation}
+    \boxed{
+    \overrightarrow{B}(s) = \frac{\mu_0I}{2\pi s}\hat{\phi}
+    }
+    \label{eq:long-wire-B}
+\end{equation}
+We now extend this example to the two parallel infinitely long straight wires. Suppose Wire 1 carries $I_1$ current and Wire 2 carries $I_2$ current, and they have same current directions. Then what is the magnetic force on Wire 2 due to Wire 1, $\overrightarrow{F}_{1\to 2}$?
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=6cm]{250-Revision/two-wires.jpg}
+\end{figure}
+
+\noindent The B field due to Wire 1 is $\overrightarrow{B}=\dfrac{\mu_0I_1}{2\pi s}\hat{\phi}$. Then the magnetic force experienced by Wire 2 is:
+\[\overrightarrow{F}_{1\to 2}=I_2\int_{\mathcal{W}}d\overrightarrow{l_2}\times \overrightarrow{B_1}=...=\frac{\mu_0I_1I_2}{2\pi d}(-\hat{s})\]
+
+\noindent\textit{Loop}: See example 5.6\\
+\noindent\textbf{Conclusion:} The magnetic field due to the loop with radius $R$, carrying current $I$ and is parallel to XY-plane, is:
+\begin{equation}
+    \boxed{
+    B(z) = \frac{\mu_0I}{2}\frac{R^2}{(R^2+z^2)^{3/2}}
+    }
+    \label{eq: loop-wire-B}
+\end{equation}
+
+\noindent\textit{Solenoid}: We have a solenoid, with $n$ turns of coil per unit length, and its radius is $R$. Now it carries current $I$. Then what is the magnetic field at the point $P$, i.e. a point on symmetry axis of this solenoid?
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=5cm]{250-Revision/solenoid-B.jpg}
+\end{figure}
+
+\begin{itemize}
+    \item First let's consider single loop. According to Equation \ref{eq: loop-wire-B}, the magnetic field due to this single loop is $B_1(z)\approx \dfrac{\mu_0I}{2}\dfrac{R^2}{(R^2+z^2)^{3/2}}$.
+    
+    \item Let's now expand this to $n$ turns of loop:
+    \[dB_2=ndzB_1\implies B_2=\int_{z_1}^{z_2}dB_2\]
+    
+    \item Griffiths suggests us to change the variable from $z$ to $\theta$:
+    \[\tan\theta=\frac{R}{z}\implies z=\frac{R}{\tan\theta}\implies dz=\frac{-Rd\theta}{\sin^2\theta }\]
+    \[B_2=\int_{z_1}^{z_2}dB_2=\int_{z_1}^{z_2}nB_1dz=\frac{\mu_0nI}{2}\int_{z_1}^{z_2}\frac{R^2dz}{(R^2+z^2)^{3/2}}\]
+    \[\implies B_2=\frac{\mu_0nI}{2}\int_{\theta_1}^{\theta_2}\frac{R^3}{(R^2+z^2)^{3/2}}\frac{-d\theta}{\sin^2\theta}\]
+    
+    \item Given that $\dfrac{R}{\sqrt{R^2+z^2}}=\sin\theta$, then:
+    \[B_2=\frac{\mu_0nI}{2}\int_{\theta_1}^{\theta_2}-\sin\theta d\theta=\frac{\mu_0nI}{2}(\cos\theta_2-\cos\theta_1)\]
+    
+\end{itemize}
+\textbf{Conclusion:} The magnetic field on point $P$ due to a solenoid (radius $R$, $n$ turns per unit length) is:
+\begin{equation}
+    \boxed{
+    B = \frac{\mu_0nI}{2}(\cos\theta_2-\cos\theta_1)
+    }
+    \label{eq: solenoid-B-finite}
+\end{equation}
+
+\noindent\textit{A way further}: what's the B field of point $P$ if this solenoid is infinitely long?\\
+
+\noindent In this case, $\theta_2\to 0$, $\theta_1\to \pi$, therefore:\\
+\noindent\textbf{Conclusion:} The magnetic field on point $P$ due to infinite solenoid is 
+\begin{equation}
+    \Large{\boxed{
+    {B=\mu_0nI}
+    }}
+    \label{eq: solenoid-B-infinite}
+\end{equation}
+
+\subsubsection{For Surface currents and Volume currents}
+The Biot-Savart Law also applies for the surface current $\overrightarrow{K}$ and volume current $\overrightarrow{J}$:
+\begin{align}
+    \overrightarrow{B}(\overrightarrow{r}) &= \frac{\mu_0}{4\pi}\iint_{\mathcal{S}}\frac{\overrightarrow{K}(\overrightarrow{r}')\times \hrc}{\rc^2}da'\\
+    \overrightarrow{B}(\overrightarrow{r}) &= \frac{\mu_0}{4\pi}\iiint_{\mathcal{E}}\frac{\overrightarrow{J}(\overrightarrow{r}')\times \hrc}{\rc^2}d\tau'
+\end{align}
+
 \subsection{Divergence and Curl of Magnetic Field}
+\subsubsection{Divergence of B-field}
+\begin{center}
+    \textit{"The divergence of magnetic field is always zero."}
+\end{center}
+
+\noindent Recall that for continuous volume density distribution...
+\[\overrightarrow{B}(\overrightarrow{r}) = \frac{\mu_0}{4\pi}\iiint_{\mathcal{E}}\frac{\overrightarrow{J}(\overrightarrow{r}')\times \hrc}{\rc^2}d\tau'\]
+We can prove algebraically that the divergence of $\overrightarrow{B}$ is zero, i.e.
+\[\nabla\cdot\overrightarrow{B}= \frac{\mu_0}{4\pi}\iiint_{\mathcal{E}}\nabla\cdot\left(\frac{\overrightarrow{J}(\overrightarrow{r}')\times \hrc}{\rc^2}\right)d\tau'=0\]
+
+\noindent\textbf{Proof:} We know from the vector calculus that the divergence of cross product vector is:
+\[\nabla \cdot(\overrightarrow{A}\times \overrightarrow{C})=\overrightarrow{C}\cdot(\nabla\times\overrightarrow{A})-\overrightarrow{A}\cdot (\nabla\times\overrightarrow{C})\]
+
+\begin{itemize}
+    \item For vector $\overrightarrow{A}$:
+    \[\overrightarrow{A}\to\overrightarrow{J}(\overrightarrow{r}')\implies \nabla\times \overrightarrow{J}(\overrightarrow{r}')=\overrightarrow{0}\]
+    \textit{Why?} This is because of the variables: while $\overrightarrow{B}$ depend on vector $\overrightarrow{r}=(x, y, z)^\mathrm{T}$, the $\overrightarrow{J}$ depends on primed variables: $\overrightarrow{r}'=(x', y', z')^\mathrm{T}$. Also notice that $\nabla$ is for unprimed variables $(x,y,z)$, therefore $\nabla\times \overrightarrow{J}$ is equivalent to the curl of a constant vector field, which is certainly a zero vector.
+    
+    \item For vector $\overrightarrow{C}$: (see Prob 1.63)
+    \[\overrightarrow{C}\to \frac{\hrc}{\rc^2}=\nabla\left(\frac{1}{\rc}\right)\implies \nabla\times(\nabla(\frac{1}{\rc}))=\overrightarrow{0}\]
+    (curl of gradient is always 0)
+    
+\end{itemize}
+Therefore:
+\begin{equation}
+    \boxed{\nabla\cdot \overrightarrow{B}=0}
+    \label{eq: div-B}
+\end{equation}
+\begin{flushright}
+    $\square$
+\end{flushright}
+By Green's theorem in 3D: it's implied that for any closed surface the magnetic flux is always zero:
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=10cm]{250-Revision/div-b-0.png}
+\end{figure}
+
+\[\nabla\cdot\overrightarrow{B}=0\iff \oiint_{\mathcal{S}}\overrightarrow{B}\cdot d\overrightarrow{a}=0=\Phi_B\]
+\[\mathcal{S}=\mathcal{S}_1\cup\mathcal{S}_2\cup\mathcal{S}_3\implies \oiint_\mathcal{S}\overrightarrow{B}\cdot d\overrightarrow{a}=\iint_{\mathcal{S}_1}\overrightarrow{B}\cdot d\overrightarrow{a}_1+\iint_{\mathcal{S}_2}\overrightarrow{B}\cdot d\overrightarrow{a}_2+\cancel{\iint_{\mathcal{S}_3}\overrightarrow{B}\cdot d\overrightarrow{a}_3}\]
+\[=-\iint_{\mathcal{S}_2}\overrightarrow{B}\cdot d\overrightarrow{a}_2+\iint_{\mathcal{S}_2}\overrightarrow{B}\cdot d\overrightarrow{a}_2=0\]
+
+
+\subsubsection{Curl of B-field: Amp\`ere Law}
+We take a straight wire as an example. This wire is parallel to $z$ axis (cylindrical) and is carrying current $I$. (Figure \ref{fig: curl-B})
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=8cm]{250-Revision/curl-b.PNG}
+    \caption{Straight wire and its magnetic field}
+    \label{fig: curl-B}
+\end{figure}
+\newline
+\noindent From Biot-Savart Law:
+\begin{itemize}
+    \item $d\overrightarrow{l}=ds\hat{s}+sd\phi\hat{\phi}+dz\hat{z}$
+    \item $\overrightarrow{B}=\dfrac{\mu_oI}{2\pi s}\hat{\phi}$
+    \item $\oint_{\mathrm{loop}}\overrightarrow{B}\cdot d\overrightarrow{l}=\int_{0}^{2\pi}\dfrac{\mu_0Id\phi}{2\pi}=\mu_0I_{enc}$
+    where $I_{enc}$ is the encircled current in this loop.
+    \item We also know that $I_{enc}=\iint \overrightarrow{J}\cdot d\overrightarrow{a}$, and from Stokes' theorem:
+    \[\oint\overrightarrow{B}\cdot d\overrightarrow{l}=\iint(\nabla \times \overrightarrow{B})\cdot d\overrightarrow{a}=\mu_0\iint \overrightarrow{J}\cdot d\overrightarrow{a}\]
+    \item We shrink this loop to have its area approaching to zero, now we have the curl of B field:
+    \[\nabla\times \overrightarrow{B}=\mu_0\overrightarrow{J}\]
+\end{itemize}
+
+\noindent\textbf{Conclusion} The curl of magnetic field is as follows:
+\begin{equation}
+    \boxed{
+    \nabla\times \overrightarrow{B}=\mu_0\overrightarrow{J}
+    }
+    \label{eq: Ampere-law}
+\end{equation}
+this is also called \textbf{Amp\`ere's Law}. This law helps us to evaluate the magnetic field of some regular shapes by a given current $I$, without using Biot-Savart Law equation. Just like Gauss's Law, in Amp\`ere's Law analysis we need to draw an Amperian loop. For the Amperic loop, we can use the integral form of this Law:
+\begin{equation}
+    \boxed{
+    \oint_{\mathrm{loop}}\overrightarrow{B}\cdot d\overrightarrow{l}=\mu_0I_{enc}
+    }
+    \label{eq: Ampere-law-integral}
+\end{equation}
+
+\noindent \textit{Example 1:} Infinitely long straight wire:
+\begin{itemize}
+    \item By symmetry, $B$ only depends on radial distance $s$ itself. It doesn't depend on $\phi$ since the cylindrical symmetry or $z$ since the wire is infinitely long.
+    \item Now we use Biot-Savart Law to qualitatively evaluate wire magnetic field direction. By this law, it's parallel to $\hat{\phi}$.
+    \item Now we can draw an Amperian loop around this wire, with radius $s$ centered at the axis of this wire. By Amp\`ere's Law
+    \[\oint_{AL}\overrightarrow{B}\cdot d\overrightarrow{l}=2\pi B(s)=\mu_0I\]
+    \item Finally:
+    \[B=\frac{\mu_0I}{2\pi s}\]
+\end{itemize}
+\noindent \textit{Example 2:} Infinite sheet of current. See Example 5.8.\\
+\noindent \textit{Example 3:} Infinite solenoid. See Example 5.9.
+
+\subsubsection{Maxwell Equations for Statics}
+So far we have learned four equations of both electrostatics and magnetostatics:
+\begin{align}
+    \boxed{
+    \nabla\cdot \overrightarrow{E}=\frac{\rho}{\varepsilon_0}\ \ \ \ \ \nabla\times \overrightarrow{E}=\overrightarrow{0}
+    }\\
+    \boxed{
+    \nabla\cdot \overrightarrow{B}=0\ \ \ \  \nabla\times \overrightarrow{B}=\mu_0\overrightarrow{J}
+    }
+\end{align}
+In the next section, we are going to review the vector potentials for magnetostatics.
+
 \subsection{Magnetic Vector Potential}
+\subsubsection{Vector potential in Cartesian}
+In the electrostatics, since $\nabla\times\overrightarrow{E}=0$, we have a scalar potential to describe E field:
+\[\overrightarrow{E}=-\nabla V\]
+where $V$ is the electrostatic scalar potential, or just "electric potential". We also have learned that:
+\[-(\nabla\cdot\overrightarrow{E})=-\frac{\rho}{\varepsilon_0}=\nabla^2V\]
+which is called \textbf{Poisson equation} in electrostatics.\\
+
+\noindent In magnetostatics, since $\nabla\cdot\overrightarrow{B}=\overrightarrow{0}$, we introduce a vector potential $\overrightarrow{A}$ to describe magnetic field:
+\begin{equation}
+    \boxed{\overrightarrow{B}=\nabla\times \overrightarrow{A}}
+    \label{eq: B-vector-potential}
+\end{equation}
+\noindent Therefore, Amp\`ere's law can also be derived from the vector potential idea:
+\begin{eqnarray*}
+    \nabla \times \overrightarrow{B} &=& \nabla \times (\nabla \times \overrightarrow{A})\\
+    &=& \nabla(\nabla \cdot \overrightarrow{A})-\nabla^2\overrightarrow{A}\\
+    &=& \mu_0\overrightarrow{J}
+\end{eqnarray*}
+The expression of $\nabla(\nabla\cdot \overrightarrow{A})$ is quite complicated and we can eliminate this by defining $\nabla \cdot \overrightarrow{A}=0$ so that we can also get a Poisson equation for magnetostatics. How can we do that?\\
+
+\noindent Suppose we have a vector field $\overrightarrow{A}_0$ such that it has \textit{non-zero} divergence and $\overrightarrow{B}=\nabla \times \overrightarrow{A}_0$, then, we add this $\overrightarrow{A}_0$ to $\overrightarrow{A}$ by some gradient of scalar $\lambda$, i.e. there exists a scalar function $\lambda(\overrightarrow{r})$ such that:
+\[\overrightarrow{A}=\overrightarrow{A}_0+\nabla\lambda(\overrightarrow{r})\]
+
+\noindent Then:
+\[\nabla \cdot \overrightarrow{A} = \nabla\cdot \overrightarrow{A}_0+\nabla^2\lambda\]
+And there exists some $\lambda$ such that $ \nabla\cdot \overrightarrow{A}_0+\nabla^2\lambda=0$:
+\[\nabla^2\lambda=-\nabla\cdot \overrightarrow{A}_0\]
+
+\noindent By the same way we define the equation of electrostatic potential $V$ from Poisson equation $\nabla^2V=-\dfrac{\rho}{\varepsilon_0}\implies V=\dfrac{1}{4\pi\varepsilon_0}\iiint\dfrac{\rho}{\rc}d\tau$, we can also use this definition to have expression for $\lambda$:
+\[\lambda=\frac{1}{4\pi}\iiint\frac{\nabla\cdot \overrightarrow{A}_0}{\rc}d\tau\]
+
+\noindent This allows us to find $\overrightarrow{A}$ such that $\nabla\cdot \overrightarrow{A}=0$ (but this is not always the case). And therefore:
+\begin{equation}
+    \boxed{
+    \nabla^2\overrightarrow{A}=-\mu_0\overrightarrow{J}
+    }
+    \label{eq: Poisson-magnetostatics}
+\end{equation}
+this is called \textbf{Poisson equation} for magnetic potential field. And we expand this equation to find out expression of $\overrightarrow{A}$:
+\begin{equation}
+    \boxed{
+    \overrightarrow{A}(\overrightarrow{r})=\frac{\mu_0}{4\pi}\iiint \frac{\overrightarrow{J}(\overrightarrow{r'})}{\rc}d\tau'
+    }
+    \label{eq: vector-potential-B}
+\end{equation}
+There are three Poisson equations for vector potential in three coordinates $(x,y,z)$ therefore there are also three equations for vector potential of magnetic field, for example:
+\[A_x=\frac{\mu_0}{4\pi}\iiint\frac{J_x(r')}{\rc}d\tau'\]
+
+\noindent And for line and surface currents:
+\begin{eqnarray*}
+    \overrightarrow{A} &=& \frac{\mu_0}{4\pi}\int \frac{\overrightarrow{I}dl'}{\rc}\\
+    \overrightarrow{A} &=& \frac{\mu_0}{4\pi}\iint \frac{\overrightarrow{K}(\overrightarrow{r'})da'}{\rc}
+\end{eqnarray*}
+
+\noindent \textit{Example 1:} Wire segment (Problem 5.23, see Lecture 17 notes) \\
+\noindent \textit{Example 2:} Infinite solenoid (Example 5.12, see Lecture 17 notes)
+
+\subsubsection{Vector Laplacian in different coordinate system?}
+In cylindrical coordinates:
+\begin{equation*}
+    \nabla^2\overrightarrow{A}=\left(\nabla^2A_s-\frac{A_s}{s^2}-\frac{2}{s^2}\frac{\partial A_\phi}{\partial \phi}\right)\hat{s} + \left(\nabla^2A_\phi-\frac{A_\phi}{s^2}+\frac{2}{s^2}\frac{\partial A_s}{\partial \phi}\right)\hat{\phi}+(\nabla^2A_z)\hat{z}
+\end{equation*}
+In spherical coordinates:
+\begin{equation*}
+    {\begin{aligned}\nabla^2\overrightarrow{A}(\rho,\theta,\phi)=\left(\nabla ^{2}A_{\rho}-{\frac {2A_{\rho}}{\rho^{2}}}-{\frac {2}{\rho^{2}\sin \theta }}{\frac {\partial \left(A_{\theta }\sin \theta \right)}{\partial \theta }}-{\frac {2}{\rho^{2}\sin \theta }}{\frac {\partial A_{\phi }}{\partial \phi }}\right)&{\hat {\rho}}\\+\left(\nabla ^{2}A_{\theta }-{\frac {A_{\theta }}{\rho^{2}\sin ^{2}\theta }}+{\frac {2}{\rho^{2}}}{\frac {\partial A_{\rho}}{\partial \theta }}-{\frac {2\cos \theta }{\rho^{2}\sin ^{2}\theta }}{\frac {\partial A_{\phi }}{\partial \phi }}\right)&{\hat {{\theta }}}\\+\left(\nabla ^{2}A_{\phi }-{\frac {A_{\phi }}{\rho^{2}\sin ^{2}\theta }}+{\frac {2}{\rho^{2}\sin \theta }}{\frac {\partial A_{\rho}}{\partial \phi }}+{\frac {2\cos \theta }{\rho^{2}\sin ^{2}\theta }}{\frac {\partial A_{\theta }}{\partial \phi }}\right)&{\hat {\phi }}\end{aligned}}
+\end{equation*}
+\subsection{Recap}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=15.7cm]{250-Revision/statics-recap.png}
+\end{figure}
+\newpage
+
 \section{Electrodynamics}
 \subsection{Electromotive Force}
 \subsection{Electromagnetic Induction}
 \subsection{Maxwell's Equations}
+
+
+
+\section{EM Wave Introduction}
+
+
 
 \end{document}
