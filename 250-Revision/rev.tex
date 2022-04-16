@@ -16,7 +16,7 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[RE,RO]{\leftmark}
-\fancyhead[LE,LO]{\textsc{PHY250 Notes}}
+\fancyhead[LE,LO]{\textsc{PHY250 Revision Notes}}
 \fancyfoot[CE,CO]{\thepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{tikz}
@@ -47,7 +47,7 @@
 		\textbf{\Large{PHY250: Formulas and Notes}}\\
 		\textit{Kuzma Cosmos (2022)}
 	\end{center}
-	\textit{This document is for reviewing references and is based on Prof Grizouard's lecture notes and Griffiths E\ \&\ M Textbook. Use in the course only.}
+	\textit{This document is for references and is based on Prof Grizouard's lecture notes and Griffiths E\ \&\ M Textbook. Use in the course only. Proofread already but may still have typo(s).}
 	\tableofcontents
 	\newpage
 	
@@ -1500,14 +1500,15 @@ By Green's theorem in 3D: it's implied that for any closed surface the magnetic 
 
 
 \subsubsection{Curl of B-field: Amp\`ere Law}
-We take a straight wire as an example. This wire is parallel to $z$ axis (cylindrical) and is carrying current $I$. (Figure \ref{fig: curl-B})
+We take a straight wire as an example. This wire is parallel to $z$ axis (cylindrical) and is carrying current $I$. (Figure \ref{fig: curl-B})\\
+
 \begin{figure}[h]
     \centering
     \includegraphics[width=8cm]{250-Revision/curl-b.PNG}
     \caption{Straight wire and its magnetic field}
     \label{fig: curl-B}
 \end{figure}
-\newline
+
 \noindent From Biot-Savart Law:
 \begin{itemize}
     \item $d\overrightarrow{l}=ds\hat{s}+sd\phi\hat{\phi}+dz\hat{z}$
@@ -1635,13 +1636,422 @@ In spherical coordinates:
 
 \section{Electrodynamics}
 \subsection{Electromotive Force}
+\subsubsection{Ohm's Law for charged particles}
+Charges inside the material cannot start moving itself. Instead there exists a force exerting on these charges to start moving. But before this, note that materials can be divided into two types:
+\begin{itemize}
+    \item \textbf{Insulator}: charges (mostly electrons) are attached to the nuclei and are hard to move freely. Examples of insulator: plastics, glass, dielectrics.
+    \item \textbf{Conductor}: some charges are "pooled", and can easily and freely moving between the nuclei. Examples of conductor: metals, electrolytes. 
+\end{itemize}
+Suppose there is a force $\overrightarrow{F}$ per unit charge such that set the electrons to move. Then this force will create a flowing charges and forming current density $\overrightarrow{J}$ which is defined as follows:
+\begin{equation}
+    \boxed{\overrightarrow{J}=\sigma \overrightarrow{F}}
+    \label{eq: local-ohm's-law}
+\end{equation}
+where $\sigma$ is conductivity of this material. This is called \textbf{Local Ohm's Law}. For perfect conductor, $\sigma\to\infty$ but for perfect insulator $\sigma\to 0$. And in EM regime:
+\begin{equation}
+    \boxed{\overrightarrow{J}=\sigma(\overrightarrow{E}+\overrightarrow{v}\times \overrightarrow{B})}
+\end{equation}
+and in this course, we assume that $||\overrightarrow{E}||>>||\overrightarrow{v}\times \overrightarrow{B}||$. Therefore the Local Ohm's Law in this course becomes:
+\[\overrightarrow{J}=\sigma \overrightarrow{E}\]
+In a wire segment, the current across the section $\mathcal{S}$ of wire becomes:
+\[I=\iint_{\mathcal{S}}\overrightarrow{J_0}\cdot d\overrightarrow{a}=\iint_{\mathcal{S}}\sigma\overrightarrow{E}\cdot d\overrightarrow{a}\]
+And in scalar analysis, $I=\sigma AE$, where $A$ is cross-section area of wire.\\
+
+\noindent We also have the \textit{potential difference} between start and end of wire $\mathcal{W}$ with length $L$ defined as:
+\[V=-\int_{\mathcal{W}}\overrightarrow{E}\cdot d\overrightarrow{l}=+EL\]
+Then we can rewrite the equation for current and derive the equation for resistance from IVR version of Ohm's Law:
+\[I=\sigma EA=\sigma\frac{A}{L}V\implies R=\frac{V}{I}=\frac{L}{\sigma A}\]
+
+\subsubsection{Electromotive Force (EMF)}
+EMF is not a force, it is actually work per unit charge required to move the charges.
+\begin{equation}
+    \mathcal{E} = \oint\overrightarrow{F}\cdot d\overrightarrow{l}
+    \label{eq: emf-definition}
+\end{equation}
+
+\noindent \textit{Example:} Motional emf: the constant magnetic field region is colored in red, with field directions pointing into the page ($\hat{y}$) and its magnitude $B$. The circuit is being pulled with a constant velocity $v=-x'$. Then what is the emf of this circuit?\\
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=8cm]{250-Revision/motional-emf.png}
+\end{figure}
+
+\noindent \textbf{Solution} Since this circuit is moving, the electrons inside the wire are also moving, thus \textit{for each electron} it is experiencing magnetic force (but only on side $ab$, since sides $ad$ and $bc$ are parallel to moving velocity direction):
+\[\overrightarrow{f_B}=\frac{-e}{-e}\overrightarrow{v}\times \overrightarrow{B}=\overrightarrow{v}\times \overrightarrow{B}\]
+Since $\overrightarrow{v}=v\hat{x}$, $\overrightarrow{B}=B\hat{y}$, then compute the emf:
+\[\mathcal{E}=\oint\overrightarrow{f_b}\cdot d\overrightarrow{l}=vhB\]
+However, we know that magnetic force does not do work, therefore the \textit{work done} is from the our hands which are pulling the circuit. Also, the motion of charged particles (electrons in this case) seems not be parallel to the wire. Given that the $I$ is parallel to $ab$ side, while the motion of circuit is perpendicular to the wire, the resultant motion of electrons deviates from the $+\hat{z}$ direction.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=7cm]{250-Revision/emf-e-motion.png}
+\end{figure}
+
+\noindent In the above diagram, assume the vertical segment of wire $ab$ is parallel to $\overrightarrow{u}$. When there is emf present in this circuit, the free moving charges in $ab$ segment have velocity $\overrightarrow{u}$, while the horizontal motion of circuit gives a horizontal velocity of $\overrightarrow{v}$. Thus the resultant velocity vector for these free charges is $\overrightarrow{w}=\overrightarrow{u}+\overrightarrow{v}$. By the left hand rule, $\overrightarrow{f}_{\mathrm{mag}}$ is perpendicular to $\overrightarrow{w}$ vector. And the magnetic force vector has its horizontal component equal to $uB$ (\textit{Why?} Think about it in terms of trigonometry). \\
+
+\noindent Given that the magnitude of $v$ is constant (\textit{force equilibrium!}), the magnitude of $\overrightarrow{f}_{\mathrm{pull}}$ must equal to $uB$. Then we can calculate the $\mathcal{E}$ with respect to the pulling force again:
+\[\mathcal{E}=\int_{\textrm{wire } ab}\overrightarrow{f}_{\mathrm{pull}}\cdot d\overrightarrow{l}=(Bu)\frac{h}{\cos\theta}\sin\theta =vhB\]
+\textit{Another example: Example 7.4, Problem 7.7}
+
+\subsubsection{Magnetic flux and EMF}
+Just like electric field has its flux $\Phi_{E}=\iint\overrightarrow{E}\cdot d\overrightarrow{a}$, magnetic field also has magnetic flux over a closed area $\mathcal{S}$:
+\begin{equation}
+    \Phi_{B}=\iint_{\mathcal{S}}\overrightarrow{B}\cdot d\overrightarrow{a}
+    \label{eq: B-flux}
+\end{equation}
+In Faraday's version of the experiment in the motional emf in the Section 4.1.2, the magnetic flux is:
+\[\Phi_{B}=Bhx\]
+He found that $\overrightarrow{v}=\dfrac{dx}{dt}$, while $\mathcal{E}=-Bvh$ (because the loop area inside B field is decreasing), he concluded that:
+\begin{equation}
+    \boxed{
+    \mathcal{E}=-\frac{d\Phi}{dt}
+    }
+    \label{eq: EMF-flux}
+\end{equation}
+In text: \textit{Changing magnetic flux causes EMF}.
+
 \subsection{Electromagnetic Induction}
-\subsection{Maxwell's Equations}
+\subsubsection{Faraday's three experiments and Faraday's Law}
+In 1831, British physicist Michael Faraday did a series of experiments for inducing EMF, he conclued that:
+\begin{description}
+    \item[Experiment 1] Moving wire loop in the magnetic field creates current flowing in the wire.
+    \item[Experiment 2] Moving the magnet (so the magnetic field moves) and keeping the loop static, the current flows in the wire.
+    \item[Experiment 3] Keeping both \cancel{magnet} electromagnet and wire static, by changing the strength of B field created by electromagnet, current flows in the wire.
+\end{description}
+Now it's quite obvious that \textbf{Experiment 1} is the same as \textbf{Experiment 2} due to the relative motion of one with another. However, Faraday knew nothing about relativity. If the magnetic is static and wire is moving, then it is the magnetic force setting up the emf. But if the wire is static then what contributes to emf? The electric field.\\
+
+\noindent Let's say that in the Experiment 1 reference frame, all particles have velocity $\overrightarrow{v}$. Now in the Experiment 2 inertial reference frame, the B field moves at velocity $\overrightarrow{v_0}$:
+\[\overrightarrow{v}'=\overrightarrow{v}-\overrightarrow{v_0}\]
+The invariance in the B-E force becomes:
+\[\overrightarrow{F}=\overrightarrow{F'}\implies \overrightarrow{v}\times \overrightarrow{B}+\overrightarrow{E}=\overrightarrow{v'}\times\overrightarrow{B'}+\overrightarrow{E'}\]
+\[\overrightarrow{v}\times \overrightarrow{B}+\overrightarrow{E}=(\overrightarrow{v}-\overrightarrow{v_0})\times\overrightarrow{B'}+\overrightarrow{E'}\]
+\[\overrightarrow{v}\times \overrightarrow{B}+\overrightarrow{E}=\overrightarrow{v}\times \overrightarrow{B'}+\overrightarrow{E'}-\overrightarrow{v_0}\times\overrightarrow{B'}\]
+This is always True for any $\overrightarrow{v}$. Therefore:
+\[\overrightarrow{B}=\overrightarrow{B'},\ \overrightarrow{E'}=\overrightarrow{E}+\overrightarrow{v_0}\times\overrightarrow{B}\]
+where $\overrightarrow{v_0}\times \overrightarrow{B}$ caused EMF.\\
+
+\noindent \textbf{Experiment 3}: Known that, $\mathcal{E}=-\Phi'$ and $\Phi=\iint\overrightarrow{B}\cdot d\overrightarrow{a}$. Here, introduce Leibniz's rule of integration stating that:
+\begin{equation}
+    \frac{d}{dx}\left[\int_{a(t)}^{b(t)}f(x,t)dx\right] = \underbrace{-F(a(t), t)\frac{da}{dt}+F(b(t), t)\frac{db}{dt}}_{\text{moving boundary contribution}}+\underbrace{\int_{a(t)}^{b(t)}\frac{\partial f}{\partial t}dx}_{\text{local field change}}
+\end{equation}
+Expand this in higher dimensions: for rectangular wire in XZ plane:
+\begin{equation*}
+    \Phi=\int_0^h dz\int_0^xB(t) dt\implies \frac{d\Phi}{dt}=h(\underbrace{-Bv}_{\text{moving boundary}}+\underbrace{\int_{0}^{h}\frac{\partial B}{\partial t}dx}_{\text{local B field change}})
+\end{equation*}
+And from these three experiments:
+\begin{equation}
+    \boxed{
+    \mathcal{E}=-\Phi'=-\iint\frac{\partial \overrightarrow{B}}{\partial t}\cdot d\overrightarrow{a}=\oint\overrightarrow{E}\cdot d\overrightarrow{l}
+    }
+    \label{eq: Faraday's law-integral}
+\end{equation}
+This is integral form of \textbf{Faraday's Law}. By Stokes Theorem, Faraday's Law turns to be differential form, also known as \textbf{Maxwell-Faraday Equation}:
+\begin{equation}
+    \boxed{
+    \nabla\times \overrightarrow{E}= -\frac{\partial B}{\partial t}
+    }
+    \label{eq: Faraday's Law-derivative}
+\end{equation}
+
+\noindent \textbf{Faraday's Field} Recall that in magnetostatics, $\exists \overrightarrow{A},\ \overrightarrow{B}=\nabla\times \overrightarrow{A}$. We can use this vector potential to further deduce electric field:
+\[\frac{\partial }{\partial t}(\nabla\times\overrightarrow{A})=\nabla \times \overrightarrow{E}\]
+\[\implies \nabla\times\left(\overrightarrow{E}+\frac{\partial \overrightarrow{A}}{\partial t}\right)=\overrightarrow{0}\]
+\[\implies \overrightarrow{E}+\frac{\partial \overrightarrow{A}}{\partial t}=-\nabla V\]
+\[\overrightarrow{E}=\underbrace{-\nabla V}_{\text{Electrostatic field}}+\underbrace{\frac{\partial \overrightarrow{A}}{\partial t}}_{\text{Electromotive/Faraday's Field}}\]
+
+\noindent \textit{Example: Problem 7.12}\\
+
+\noindent To conclude, let's introduce the last law related to Faraday's Law:
+\begin{description}
+    \item[Lenz's Law] Induced current always tends to oppose the change in magnetic flux.
+\end{description}
+This means the induced current will flow in such a direction that the flux it produces tends to cancel the change. \href{https://www.youtube.com/watch?v=N7tIi71-AjA}{Demo.}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=15cm]{250-Revision/lenz.png}
+\end{figure}
+
+\subsubsection{The induced electric field}
+In last section we mentioned that $\overrightarrow{E}$ is combination of electrostatic field and electromotive field (also known as Faraday's Field).
+\[\overrightarrow{E}=-\nabla V+\frac{\partial \overrightarrow{A}}{\partial t}\]
+In the pure Faraday field:
+\[\overrightarrow{E}=-\frac{\partial \overrightarrow{A}}{\partial t}\]
+Therefore the divergence of Faraday Field is:
+\[\nabla \cdot \overrightarrow{E}=-\frac{\partial }{\partial t}(\nabla \cdot \overrightarrow{A})=0\]
+The Electrostatic equations becomes as follows:
+\[\nabla\cdot \overrightarrow{E}=0,\ \nabla\times \overrightarrow{E}=-\frac{\partial \overrightarrow{B}}{\partial t}\]
+which is identical to the magnetostatics equations:
+\[\nabla\cdot \overrightarrow{B} = 0,\ \nabla\times \overrightarrow{B}=\mu_0\overrightarrow{J}\]
+So we can use "Biot-Savart" to determine $\overrightarrow{E}$:
+\begin{equation}
+    \overrightarrow{B}=\frac{\mu_0}{4\pi}\iiint\frac{\overrightarrow{J}\times\hrc}{\rc^2}d\tau\implies \overrightarrow{E}=-\frac{1}{4\pi}\iiint \frac{(\partial_t\overrightarrow{B})\times\hrc}{\rc^2}d\tau
+\end{equation}
+And use "Amp\`ere's Law" to compare "Faraday's Law" in integral form:
+\begin{equation}
+    \oint\overrightarrow{B}\cdot d\overrightarrow{l}=\mu_0I_{\text{enc}}\implies \oint \overrightarrow{E}\cdot d\overrightarrow{l}=-\iint_{\text{enclosed}}\frac{\partial \overrightarrow{B}}{\partial t}\cdot d\overrightarrow{a}=-\mathcal{E}
+\end{equation}
+
+\noindent\textit{Example 7.8} Picture see Figure 7.26 from Griffiths, p.318. Now the $\overrightarrow{B_0}$ becomes zero. Then what happens next?\\
+
+\noindent \textit{Solution} From Faraday's Law, the induced EMF of loop with radius $b$ is:
+\[\mathcal{E}=-\frac{d\Phi}{dt}=\oint\overrightarrow{E}\cdot d\overrightarrow{l}=2\pi bE\]
+\[\Phi'=B'A=B'\pi a^2\implies \overrightarrow{E}(s=b)=\frac{a^2 B'}{2b}\hat{\phi}\]
+Changing $\overrightarrow{B}_0$ creates a torque on line charge which starts rotating. This creates a circular current which creates another $\overrightarrow{B}$ field which opposes the change in magnetic flux from $\overrightarrow{B}_0$. The total flux on infinitesimal element $d\overrightarrow{l}$ is:
+\[\tau=\oint (\overrightarrow{r}\times\overrightarrow{F})\cdot d\overrightarrow{l}=\oint b\lambda Edl=...=-b\lambda \pi a^2B'\]
+
+\noindent \textit{Another Example: Ex 7.9, p. 319-320}\\
+
+\noindent \textbf{Quasi-static Regime} This allows us to use the magnetostatics equations even if the systems are not static. In other words, we assume that the system chanegs slowly. If the system has a size $L$, and we have a time scale $\tau$, then the quasi-static system satisfies inequality that $L>>c\tau$ for some constant $c$.
+\subsubsection{Mutual Inductance and Self Inductance}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=12cm]{250-Revision/mutual-inductance.png}
+\end{figure}
+
+\noindent Now we have two loops, I let Loop 1 carry a current $I_1$, then by Biot-Savart the B field created by Loop 1 is:
+\[\overrightarrow{B}_1=\frac{\mu_0I_1}{4\pi}\int\frac{d\overrightarrow{l}\times \hrc}{\rc^2}\]
+The Magnetic flux by $\overrightarrow{B}_1$ toward Loop 2 is:
+\[\Phi_2=\iint_{L_2}\overrightarrow{B_1}\cdot d\overrightarrow{a_2}\]
+Let $M_{21}I_1=\Phi_2$, then:\
+\[\Phi_2=\iint_{L_2} \overrightarrow{B_1}\cdot d\overrightarrow{a_2}=\iint_{L_2}(\nabla \times \overrightarrow{A_1})\cdot d\overrightarrow{a_2}=\oint_{L_2}\overrightarrow{A_1}\cdot d\overrightarrow{l_2}\]
+\[\overrightarrow{A_1}=\frac{\mu_0I_1}{4\pi}\oint_{L_1}\frac{d\overrightarrow{l_1}}{\rc}\implies \Phi_2=\frac{\mu_0I_1}{4\pi}\oint_{L_2}\oint_{L_1}\frac{d\overrightarrow{l_1}\cdot d\overrightarrow{l_2}}{\rc}\]
+\[\implies M_{21}=\frac{\mu_0}{4\pi}\oint_{L_2}\oint_{L_1}\frac{d\overrightarrow{l_1}\cdot d\overrightarrow{l_2}}{\rc}=M_{12}=M\]
+where $M$ is called \textbf{mutual inductance} of these two loops. When driving current $I$ through Loop 1, $\Phi_2=MI$; when driving current $I$ on Loop 2, $\Phi_1=MI=\Phi_2$.\\
+
+\noindent \textbf{Self-inductance: varying current}\\
+\noindent We know that if the current is changing, then so is the magnetic field, and so is the magnetic flux in unit time creates EMF, that is:
+\[-\mathcal{E}=\frac{d\Phi}{dt}=\iint \overrightarrow{B}'\cdot d\overrightarrow{a}\]
+This $\mathcal{E}$ is called the \textbf{back emf}, and by Lenz's Law the back emf opposes change in B flux. We have also shown that $\Phi$ is proportional to $I$, so I let $\Phi=LI$ for some $L$. This $L$ is called \textbf{self-inductance/inductance} of this loop. Therefore the back emf becomes:
+\begin{equation}
+    \boxed{
+    \mathcal{E}=-\frac{dI}{dt}L
+    \label{eq: inductance}
+    }
+\end{equation}
+The unit of inductance is \textbf{Henry (H)}.\\
+
+\noindent \textit{Example: LR series circuit:} An inductor and a resistor are connected in series with a battery with voltage $\mathcal{E}_0=V_0$. Then what's the current of circuit?\\
+
+\noindent\textit{Solution:}
+\begin{itemize}
+    \item The battery's emf is $\mathcal{E}_0=V_0$
+    \item The inductor's back emf is $\mathcal{E}_L=-L\frac{dI}{dt}$
+    \item By Ohm's Law:
+    \[\mathcal{E}_0+\mathcal{E}_L=RI=V_0-L\frac{dI}{dt}\]
+    \[\implies \frac{dI}{dt}+\frac{R}{L}I=\frac{V_0}{L}\]
+    which is non-homogeneous first order DE for variable $I$. Solving this we can get its homogeneous solution:
+    \[I_h=I_0e^{-\alpha t},\ \ \alpha=\frac{L}{R}\]
+    where $I_0$ is determined by initial conditions.
+    
+    \item By undetermined coefficient methods, we have the particular solution of $I$:
+    \[I_P=\frac{V_0}{R}\]
+    \item Thus the general solution is:
+    \[I=I_h+I_P=I_0e^{-(R/L)t}+\frac{V_0}{R}\]
+    \item Use initial condition, i.e. $I_0=0$ when switch is off, we solve for $I_0$. Then the solution of current is:
+    \[I(t)=\frac{V_0}{R}\left(1-e^{-(R/L)t}\right)\]
+\end{itemize}
 
 
+\subsubsection{LCR Circuits, Magnetic Energy}
+In mechanics, we have learned that moving object stores kinetic energy, i.e. $KE=\dfrac{1}{2}mv^2$, and we also know that mechanic power associated with working force $\overrightarrow{F}$ is $P=\overrightarrow{F}\cdot \overrightarrow{v}$. Then, what about the energy in the electrodynamics? Inductance should then be associated with some kind of "electric kinetic energy" reflecting the inertia it adds to electric currents. To get electric power, we use $P=\mathcal{E}I$, this is the work done per unit time on a unit charge \textbf{against} the back emf, not the work done by the emf itself.\\
 
-\section{EM Wave Introduction}
+\noindent To study the power and energy in electric circuit, we can establish the LCR series circuit.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=8cm]{250-Revision/LCR.png}
+\end{figure}
+
+Suppose the battery provides emf $V_0$, then by Kirchhoff's voltage law, for a closed LCR circuit, since inductor provides back emf, we need to subtract from total circuit voltage, not plus:
+\[V_0=V_R+V_C-\mathcal{E}_L=IR+\frac{Q}{C}+L\frac{dI}{dt}\]
+Note that the definition of current is $I=\dfrac{dQ}{dt}$ so we can substitute this into the original equation and multiply the whole equation by $I$ to get power equation:
+\[P=V_0I=RI^2+\frac{QI}{C}+LII'\]
+$P$ is the power provided by battery or the work done by battery per second, where:
+\begin{itemize}
+    \item $RI^2$ is the heat dissipation from the resistor, according to Joule's Law.
+    \item $\dfrac{QI}{C}=\dfrac{1}{C}Q\dfrac{dQ}{dt}=\dfrac{d}{dt}(\dfrac{Q^2}{2C})$, where $\dfrac{Q^2}{2C}$ is the energy provided by capacitor, or "electric energy" charged to it.
+    \item $LII'=\dfrac{d}{dt}(\dfrac{LI^2}{2})$, where $\dfrac{LI^2}{2}$ is the energy stored in magnetic field.
+\end{itemize}
+The magnetic field energy is therefore
+\begin{equation}
+    \boxed{W_{\text{mag}}=\frac{1}{2}LI^2}
+    \label{Eq: Magnetic energy}
+\end{equation}
+Recall that, $\Phi=LI$, so magnetic energy can also be written as:
+\[W=\frac{1}{2}LI^2=\frac{1}{2}\Phi I\]
+Also by Stokes' Theorem:
+\[\Phi=\iint_{\text{loop}}\overrightarrow{B}\cdot d\overrightarrow{a}=\oint_{\text{loop}}\overrightarrow{A}\cdot d\overrightarrow{l}\]
+Therefore Equation $\ref{Eq: Magnetic energy}$ can also be written as:
+\begin{equation}
+    \boxed{W_{\text{mag}}\frac{1}{2}\oint_{\text{loop}}\overrightarrow{A}\cdot d\overrightarrow{l}I=\frac{1}{2}\oint_{\text{loop}}(\overrightarrow{A}\cdot d\overrightarrow{I})dl}
+    \label{eq: magnetic energy ver2}
+\end{equation}
+This is for the line current. In volume current it's generalized to be:
+\[W_{\text{mag}}=\frac{1}{2}\iiint_{\mathcal{V}}(\overrightarrow{A}\cdot \overrightarrow{J})d\tau\]
+
+\noindent\textbf{Poynting Vector introduction} Recall that in quasi-static regime, Maxwell-Amp\`ere Equation becomes $\nabla\times \overrightarrow{B}=\mu_0\overrightarrow{J}$, then the magnetic energy will be:
+\[W_{\text{mag}}=\frac{1}{2\mu_0}\iiint\overrightarrow{A}\cdot(\nabla\times\overrightarrow{B})d\tau\]
+while $\nabla \cdot(\overrightarrow{A}\times \overrightarrow{B})=\overrightarrow{B}\cdot \underbrace{(\nabla\times \overrightarrow{A})}_{\overrightarrow{B}}-\overrightarrow{A}\cdot(\nabla\times\overrightarrow{B})$, $W_\text{mag}$ can be rewritten as:
+\begin{eqnarray*}
+    W_{\text{mag}} &=& \frac{1}{2\mu_0}\iiint \left[||\overrightarrow{B}||^2-\nabla\cdot (\overrightarrow{A}\times \overrightarrow{B})\right]d\tau\\
+    &=& \frac{1}{2\mu_0}\iiint B^2d\tau-\frac{1}{2\mu_0}\oiint \underbrace{(\overrightarrow{A}\times\overrightarrow{B})}_{\text{Poynting vector}} \cdot d\overrightarrow{a}
+\end{eqnarray*}
+Like in electrostatics, $||\overrightarrow{A}||\propto r^{-1}$, $||\overrightarrow{B}||\propto r^{-2}$, $\oiint da\propto r^2$, then $\oiint (\overrightarrow{A}\times\overrightarrow{B})\cdot d\overrightarrow{a}\propto r^{-1}$. When $r\to \infty$:
+\[\lim_{r\to\infty}\oiint(\overrightarrow{A}\times\overrightarrow{B})\cdot d\overrightarrow{a}= 0\]
+Thus:
+\[\lim_{r\to\infty}W_{\text{mag}}=\frac{1}{2\mu_0}\iiint_{\mathbb{R}^3}B^2d\tau\]
+$\overrightarrow{A}\times \overrightarrow{B}$ is called \textbf{Poynting vector}, which will be discussed in next chapter of Griffiths textbook.\\
+
+\noindent \textit{Exercise: Example 5.10.} 
+\subsection{Maxwell's Equations: Ultimate}
+So far, we have learned all four Maxwell's equations in the E \& M, which are:
+\begin{equation}
+    \def\arraystretch{2}
+    \boxed{\begin{matrix}
+        \nabla\cdot \overrightarrow{E} = \dfrac{\rho}{\varepsilon_0} & \text{Gauss's Law}\\ 
+        \nabla \times \overrightarrow{E} = -\dfrac{\partial \overrightarrow{B}}{\partial t} & \text{Faraday's Law}\\ 
+        \nabla \cdot \overrightarrow{B} = 0 & \text{no name}\\
+        \nabla \times \overrightarrow{B} = \mu_0\overrightarrow{J} & \text{Amp\`ere's Law}
+    \end{matrix}}
+\end{equation}
+And the continuity equation:
+\begin{equation}
+    \nabla \cdot \overrightarrow{J} = -\frac{\partial\rho}{\partial t}
+\end{equation}
+At least in 19th century every scientist was happy with these equations in the quasi-static regime, except James Maxwell, who discovered inconsistency of Amp\`ere's Law equation:
+\[\nabla \times \overrightarrow{B} = \mu_0\overrightarrow{J}\]
+Mathematically speaking, the divergence of curl is always zero, i.e. $\nabla\cdot(\nabla \times \overrightarrow{B}) = 0$. However, Amp\`ere's Law states that:
+\[\nabla\cdot(\nabla \times \overrightarrow{B}) = \nabla\cdot(\mu_0\overrightarrow{J})=\mu_0(\nabla\cdot\overrightarrow{J})=-\mu_0\frac{\partial \rho}{\partial t}\neq 0\]
+This is what Maxwell confused. To remove that fraction from the Amp\`ere's Law equation, he had to use a vector field to do so, such that it is related to $\rho$. Luckily, Gauss's Law helped him:
+\[\nabla\cdot \overrightarrow{E}=\frac{\rho}{\varepsilon_0}\implies \frac{\partial(\nabla\cdot \overrightarrow{E})}{\partial t}=\frac{1}{\varepsilon_0}\frac{\partial \rho}{\partial t} \]
+Maxwell then revised Amp\`ere's Law equation:
+\begin{equation}
+    \boxed{
+    \nabla\times \overrightarrow{B}=\mu_0\overrightarrow{J}+\mu_0\varepsilon_0\frac{\partial \overrightarrow{E}}{\partial t}
+    }
+    \label{eq: Ampere-Maxwell-revised}
+\end{equation}
+The next issue is to compare $\overrightarrow{J}$ with $\varepsilon_0\dfrac{\partial \overrightarrow{E}}{\partial t}$. In Faraday's experiment,$||\overrightarrow{J}||>>\varepsilon_0||\dfrac{\partial \overrightarrow{E}}{\partial t}||$ because the variation of $\overrightarrow{E}$ is very small. Then how to account this for the revised equation of Amp\`ere's Law? This question was not answered until Hertz discovered the existence of EMW. But at Maxwell's time he defined $\varepsilon_0\dfrac{\partial \overrightarrow{E}}{\partial t}$ as \textbf{displacement current}, $\overrightarrow{J_d}$, as opposed to the conduction current $\overrightarrow{J}$. Therefore the global version of Maxwell-Amp\`ere Law appears:
+\[\oint\overrightarrow{B}\cdot d\overrightarrow{l}=\mu_0I_{enc}+\mu_0\varepsilon_0\iint\frac{\partial \overrightarrow{E}}{\partial t}\cdot d\overrightarrow{a}=\mu_0(I_{enc}+I_{disp,\ enc})\]
+And the \textbf{continuity equation} is actually a consequence of Maxwell-Amp\`ere's Law now, and is no longer being independent.
+\[\nabla\cdot \left(\nabla\times \overrightarrow{B}=\mu_0\overrightarrow{J}+\mu_0\varepsilon_0\frac{\partial \overrightarrow{E}}{\partial t}\right)\implies 0=\mu_0\nabla\cdot \overrightarrow{J}+\mu_0\underbrace{\varepsilon_0\frac{\partial (\nabla \cdot \overrightarrow{E})}{\partial t}}_{\frac{\partial \rho}{\partial t}}\]
+
+\noindent Below is the final version of Maxwell's Equations, in differential form:
+\begin{equation}
+    \def\arraystretch{2}
+    \boxed{\begin{matrix}
+        \nabla\cdot \overrightarrow{E} = \dfrac{\rho}{\varepsilon_0} & \text{Gauss's Law}\\ 
+        \nabla \times \overrightarrow{E} = -\dfrac{\partial \overrightarrow{B}}{\partial t} & \text{Faraday's Law}\\ 
+        \nabla \cdot \overrightarrow{B} = 0 & \text{no name}\\
+        \nabla \times \overrightarrow{B} = \mu_0\overrightarrow{J}+\mu_0\varepsilon_0\dfrac{\partial \overrightarrow{E}}{\partial t} & \text{Maxwell-Amp\`ere's Law}
+    \end{matrix}}
+    \label{eq: Maxwell-equations}
+\end{equation}
+\newpage
 
 
+\section{EM Wave in Vacuum}
+In this section we are going to review some notes about the Maxwell's Equations in vacuum and the derivation of wave equation from Maxwell's. Then we are going to take this into the matter to investigate th e EM wave in matter.
+\subsection{From Maxwell to Wave Equation}
+The Maxwell's Equations in free space/vacuum are as follows:
+\begin{enumerate}
+    \item $\nabla \cdot \overrightarrow{E}=0$
+    \item $\nabla \cdot \overrightarrow{B}=0$
+    \item $\nabla \times \overrightarrow{E}=-\dfrac{\partial \overrightarrow{B}}{\partial t}$
+    \item $\nabla \times \overrightarrow{B}=\mu_0\varepsilon_0\dfrac{\partial \overrightarrow{E}}{\partial t}$
+\end{enumerate}
+From equation 3, taking curl of this becomes:
+\[\nabla\times(\nabla\times \overrightarrow{E})=-\frac{\partial(\nabla\times\overrightarrow{B})}{\partial t}=-\mu_0\varepsilon_0\frac{\partial^2\overrightarrow{E}}{\partial t^2}\]
+From the formal algorithm of curl of curl:
+\[\nabla \times (\nabla\times \overrightarrow{E})=\cancel{\nabla(\nabla\cdot\overrightarrow{E})}-\nabla^2\overrightarrow{E}\implies \frac{\partial^2\overrightarrow{E}}{\partial t^2}-\frac{1}{\mu_0\varepsilon_0}\nabla^2\overrightarrow{E}=\overrightarrow{0}\]
+We can do similar operation on $\overrightarrow{B}$:
+\[\frac{\partial^2\overrightarrow{B}}{\partial t^2}-\frac{1}{\mu_0\varepsilon_0}\nabla^2\overrightarrow{B}=\overrightarrow{0}\]
+I define $c^2=\dfrac{1}{\mu_0\varepsilon_0}$, then these two equations become:
+\begin{eqnarray}
+    \frac{\partial^2\overrightarrow{E}}{\partial t^2}-c^2\nabla^2\overrightarrow{E}=\overrightarrow{0}\\
+    \frac{\partial^2\overrightarrow{B}}{\partial t^2}-c^2\nabla^2\overrightarrow{B}=\overrightarrow{0}
+\end{eqnarray}
+In 1D, the vector arrow disappears, then the equations become:
+\[\frac{\partial^2 E}{\partial t^2}-c^2\frac{\partial^2E}{\partial x^2}=0,\ \overrightarrow{E}=E(x)\hat{x}\]
+This is a second-order PDE with two different variables. The solutions to this PDE is actually \textbf{wave equation}, i.e. waves travelling at speed $c$. Now without knowing any further knowledge about PDE we can write the $E$ as follows:
+\[E=f(x-ct)+g(x+ct)\]
+And now let's focus on the wave function $f(x,t)$, defining $u(x,t)=x-ct$:
+\begin{itemize}
+    \item By chain rule, $\dfrac{\partial f}{\partial x}=\dfrac{\partial u}{\partial x}\dfrac{\partial f}{\partial u}=\dfrac{\partial f}{\partial u}$, since $u_x=1$.
+    \item $\dfrac{\partial^2 f}{\partial x^2}=(f_x)_x=(f_u)_x=\dfrac{\partial u}{\partial x}\cdot \dfrac{\partial^2 f}{\partial u^2}=\dfrac{\partial^2 f}{\partial u^2}$
+    \item $\dfrac{\partial f}{\partial t}=\dfrac{\partial u}{\partial t}\dfrac{\partial f}{\partial u}=-c\dfrac{\partial f}{\partial u}$, since $\dfrac{\partial u}{\partial t}=-c$ for $u=x-ct$
+    \item $\dfrac{\partial^2 f}{\partial t^2}=(f_t)_t=(-cf_u)_t=-c\dfrac{\partial u}{\partial t}\dfrac{\partial^2f}{\partial u^2}=c^2\dfrac{\partial f^2}{\partial u^2}\implies \dfrac{\partial f^2}{\partial t^2}=c^2\dfrac{\partial^2 f}{\partial x^2}$
+\end{itemize}
+This also works for function $g(x,t)$, just replace $-c$ into $c$. Then what's the graphic meaning of functions $f$ and $g$? Actually, it's a periodic function, like a wave. Consider this graph of function $f$, let $ct=1$, then $f(x-ct)=f(x-1)$, meaning that the curve of $f(x)$ is shifted by 1 unit rightward. If $ct=2$ then the curve will shifted 2 units rightward and so on.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=10cm]{250-Revision/wave-f.png}
+\end{figure}
 
+\noindent Thus $f(x-ct)$ is solution to the PDE: $\dfrac{\partial f^2}{\partial t^2}=c^2\dfrac{\partial^2 f}{\partial x^2}$. $g(x+ct)$ is very similar to $f$ but the motion becomes leftward. This is called wave equation.\\
+
+\noindent EM waves were theoretically predicted by Maxwell after revising Amp\`ere's Law Equation, and were experimentally proved by Hertz in 1880.
+
+\subsection{EMW Plane Wave Equations}
+It's very complicated right now to get a plane wave solution from scratch, therefore we directly use the following: for the electric field, its plane field solution to the PDE: $\dfrac{\partial^2 E}{\partial t^2}-c^2\dfrac{\partial^2E}{\partial x^2}=0$ is:
+\begin{equation}
+    \boxed{\overrightarrow{E}=E_0\cos(kz-\omega t)\hat{x}=E_0\cos\left(k\left(z-\frac{\omega}{k} t\right)\right)\hat{x}}
+    \label{Eq: e-field-wave}
+\end{equation}
+where:
+\begin{itemize}
+    \item $\omega=\dfrac{2\pi}{T}=2\pi f$, $f$ is frequency in Hertz (Hz)
+    \item $\lambda = \dfrac{2\pi}{k}$, where $k$ is (angular) wavenumber, measured in radians in unit length.
+    \item If $\omega/k=c$, then $\overrightarrow{E}$ above is a solution. This condition is called \textbf{dispersion relation} of the waves.
+\end{itemize}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=12cm]{250-Revision/EMW-E.png}
+    \caption{Plane wave solution for electric field}
+\end{figure}
+
+\noindent Then how about the $\overrightarrow{B}$ field? We know in vacuum space, according to Maxwell's Equation:
+\[\nabla\times \overrightarrow{E}=-\frac{\partial \overrightarrow{B}}{\partial t}\]
+\[\implies \frac{\partial E_0}{\partial z}\hat{y}=-\frac{\partial \overrightarrow{B}}{\partial t}\]
+\[-E_0k\sin(kz-\omega t)\hat{y}=-\frac{\partial \overrightarrow{B}}{\partial t}\]
+\begin{equation}
+    \boxed{\overrightarrow{B}=-\frac{E_0}{\omega}k\cos(kz-\omega t)\hat{y}=-\frac{E_0}{c}\cos(kz-\omega t)\hat{y}}
+    \label{eq: B-field-wave}
+\end{equation}
+This shows that $\overrightarrow{E}$ is perpendicular to $\overrightarrow{B}$, and they are in phase propagating.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=12cm]{250-Revision/EMW.png}
+    \caption{Paradigm of Monochromatic Plane Wave}
+\end{figure}
+\subsection{Energy in Plane Wave}
+The energy per unit volume in EM field is:
+\begin{equation}
+    u=\frac{1}{2}(\varepsilon_0E^2+\frac{1}{\mu_0}B^2)
+    \label{eq: EM energy}
+\end{equation}
+However we also know that:
+\[||\overrightarrow{B}||=B=\frac{E_0}{c}|\cos(kz-\omega t)|=\frac{E}{c}\]
+Therefore the Equation \ref{eq: EM energy} can be written as:
+\[u=\frac{1}{2}(\varepsilon_0+\frac{1}{c^2\mu_0})E^2\]
+Recall that, $c^2=\dfrac{1}{\mu_0\varepsilon_0}$, then:
+\begin{equation}
+    u=\varepsilon_0E^2
+\end{equation}
+And it's more useful to evaluate the value of \textbf{average energy density} in time or in space:
+\[u_{avg}=\frac{1}{T}\int_0^Tudt=\frac{1}{T}\int_0^T\varepsilon_0E_0^2\cos^2(kx-\omega t)dt\]
+Recall that $\omega=2\pi/T$, and we have the following property that:
+\[\int_0^T\cos^2(\omega t)dt=\int_0^{T}\cos^2(kx-\omega t)=\frac{T}{2}\]
+Therefore the time averaged energy density becomes:
+\begin{equation}
+    \boxed{
+    u_{avg} = \frac{\varepsilon_0E_0^2}{2}
+    }
+\end{equation}
+In space, this becomes
+\[\bar{u}=\frac{1}{\lambda}\int_0^\lambda udx=\frac{\varepsilon_0E_0^2}{2}\]
+as well.
+
+\begin{center}
+    \LARGE{\textbf{FINIS}}
+\end{center}
 \end{document}
